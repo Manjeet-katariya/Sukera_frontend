@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, MapPin, Building, Loader2 } from 'lucide-react';
-import Navbar from '../../components/layout/Navbar'; // Adjust path
 
 interface Project {
   _id: string;
@@ -213,7 +212,6 @@ export default function PortfolioPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 font-sans">
-      <Navbar />
 
       {/* --- PREMIUM HERO SECTION --- */}
       <section className="relative pt-40 pb-24 bg-zinc-900 overflow-hidden">

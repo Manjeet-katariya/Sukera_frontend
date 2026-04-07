@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
 import { useState, useEffect } from 'react';
 import { Link, Mail, User } from 'lucide-react';
 
@@ -50,14 +48,12 @@ export default function TeamPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-300 font-sans">
-        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a68a6b] mx-auto mb-4"></div>
             <p className="text-slate-600">Loading our team...</p>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -65,7 +61,6 @@ export default function TeamPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-zinc-300 font-sans">
-        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <User className="w-16 h-16 text-slate-400 mx-auto mb-4" />
@@ -79,14 +74,12 @@ export default function TeamPage() {
             </button>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-zinc-300 font-sans">
-      <Navbar />
 
       {/* Hero Section */}
       <main className="relative pt-40 pb-20 bg-zinc-50 border-b border-zinc-200">
@@ -197,7 +190,6 @@ export default function TeamPage() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }

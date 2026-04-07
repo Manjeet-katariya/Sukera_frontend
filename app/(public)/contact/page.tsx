@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Navbar from '../../components/layout/Navbar';
 import { MapPin, Phone, Mail, ArrowRight, Calculator, Send, Loader2, Upload, X, Clock } from 'lucide-react';
 
 interface ContactDetails {
@@ -165,7 +164,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 font-sans">
-      <Navbar />
 
       {/* 1. CENTERED HERO SECTION */}
       <main className="relative pt-40 pb-16 bg-zinc-50">

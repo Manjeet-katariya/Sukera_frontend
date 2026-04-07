@@ -8,8 +8,6 @@ import {
   ChevronLeft, ChevronRight, Grid3x3, Tag, Eye, Building 
 } from 'lucide-react';
 import Link from 'next/link';
-import Navbar from '@/app/components/layout/Navbar'; // Adjust path if needed
-import Footer from '@/app/components/layout/Footer'; // Adjust path if needed
 
 interface Project {
   _id: string;
@@ -112,7 +110,6 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans">
-      <Navbar />
 
       {/* --- HERO SECTION (Optimized for Mobile Height) --- */}
       <section className="relative h-[50vh] sm:h-[60vh] lg:h-[80vh] w-full bg-zinc-900 flex items-end">
@@ -260,8 +257,6 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
 
       {/* --- LIGHT THEME LIGHTBOX MODAL --- */}
       <AnimatePresence>

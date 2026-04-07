@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navbar from '../../components/layout/Navbar'; // Adjust path if needed
 import { CheckCircle2, Plus, Minus, ArrowRight, ShieldCheck, Clock, Award } from 'lucide-react';
 import Link from 'next/link';
 
@@ -39,7 +38,6 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen w-full bg-[#fcf8f2] font-sans text-slate-900 overflow-x-hidden">
-      <Navbar />
 
       {/* --- HERO SECTION --- */}
       <section className="relative w-full min-h-[70vh] sm:min-h-[80vh] md:min-h-screen pt-24 pb-8 sm:pt-28 sm:pb-10 md:pt-40 md:pb-20 flex items-center justify-center bg-zinc-900 overflow-hidden">

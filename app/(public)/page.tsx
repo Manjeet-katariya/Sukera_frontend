@@ -1,7 +1,6 @@
 ﻿"use client";
 
 import { motion } from 'framer-motion';
-import Navbar from '../components/layout/Navbar';  
 import MissionVision from '../components/MissionVision'; 
 import FeaturedProjects from '../components/FeaturedProjects'; 
 import { Award, Users, Clock, CheckCircle } from 'lucide-react';
@@ -16,7 +15,6 @@ export default function Home() {
 
   return (
     <div className="relative bg-white font-sans">
-      <Navbar />
 
       {/* --- 1. HERO SECTION --- */}
       {/* Changed mobile height to min-h-[70vh] and desktop to min-h-screen */}
@@ -97,11 +95,11 @@ export default function Home() {
               transition={{ duration: 0.8 }} 
               className="w-full lg:w-1/2 h-[350px] sm:h-[500px] md:h-[600px]"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1582560475093-ba66accbc424?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                alt="Grand Architecture" 
-                className="w-full h-full object-cover rounded-sm shadow-xl" 
-              />
+             <img 
+  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+  alt="Grand Architecture Interior" 
+  className="w-full h-full object-cover rounded-sm shadow-xl" 
+/>
             </motion.div>
 
             {/* Text Content Box */}

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navbar from '../../components/layout/Navbar'; // Adjust path if needed
 import { 
   Loader2, Calculator, Receipt, X, ChevronRight, ChevronLeft, 
   Building2, LineChart, ShieldCheck, CheckCircle2 
@@ -134,7 +133,6 @@ export default function CalculatorPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 font-sans">
-      <Navbar />
 
       {/* --- HERO SECTION --- */}
       <main className="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden bg-zinc-900">

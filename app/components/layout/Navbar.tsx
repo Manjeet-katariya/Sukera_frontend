@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react'; // Removed unused ArrowRight
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Custom Premium SVGs for Social Icons
@@ -30,7 +30,7 @@ export default function Navbar() {
     { channel: 'instagram', href: 'https://www.instagram.com', icon: InstagramIcon }
   ];
 
-  // Advanced scroll effect: detects scroll to trigger glassmorphism and color swap
+  // Advanced scroll effect
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
@@ -67,37 +67,38 @@ export default function Navbar() {
     <nav
       className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
         scrolled
-          ? 'bg-white/95 backdrop-blur-lg shadow-md py-3 border-b border-gray-200/50'
-          : 'bg-gradient-to-b from-black/70 via-black/40 to-transparent py-6 border-transparent'
+          ? 'bg-white/95 backdrop-blur-lg shadow-md py-2 border-b border-gray-200/50'
+          : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5 border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10">
+        {/* Changed to an exact 3-column layout for perfect centering */}
+        <div className="flex justify-between items-center h-16">
           
-          {/* --- LOGO --- */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative h-12 w-32 sm:h-14 sm:w-40">
+          {/* --- 1. LOGO (Flex-1 forces left alignment while sharing equal outer space) --- */}
+          <div className="flex flex-1 items-center justify-start">
+            <Link href="/" className="relative h-12 w-32 sm:h-14 sm:w-40 block group">
               <Image
                 src="/logo1.png"
                 alt="Site logo"
                 fill
-                sizes="(max-width: 640px) 128px, (max-width: 1024px) 160px, 160px"
+                sizes="(max-width: 640px) 128px, 160px"
                 loading="eager"
-                className="object-contain"
+                className="object-contain object-left"
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
 
-          {/* --- DESKTOP NAVIGATION --- */}
-          <div className="hidden lg:flex items-center space-x-8">
+          {/* --- 2. DESKTOP NAVIGATION (Flex-none ensures absolute center) --- */}
+          <div className="hidden lg:flex flex-none justify-center items-center space-x-10">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`relative group font-medium text-xs uppercase tracking-[0.15em] transition-colors duration-300 py-2 ${
+                className={`relative group font-semibold text-[13px] uppercase tracking-[0.12em] transition-colors duration-300 py-2 ${
                   scrolled 
-                    ? 'text-slate-600 hover:text-[#a68a6b]' 
-                    : 'text-gray-200 hover:text-white'
+                    ? 'text-slate-700 hover:text-[#a68a6b]' 
+                    : 'text-gray-100 hover:text-white'
                 }`}
               >
                 {link.name}
@@ -107,9 +108,16 @@ export default function Navbar() {
                 ></span>
               </Link>
             ))}
+          </div>
             
-            {/* Desktop Social Icons with Premium Backgrounds */}
-            <div className={`flex items-center space-x-3 pl-6 border-l transition-colors duration-300 ${scrolled ? 'border-zinc-300' : 'border-white/20'}`}>
+          {/* --- 3. RIGHT SIDE: SOCIALS & MOBILE TOGGLE (Flex-1 forces right alignment) --- */}
+          <div className="flex flex-1 items-center justify-end space-x-4 lg:space-x-5">
+            
+            {/* Vertical Divider (Desktop Only) */}
+            <div className={`hidden lg:block h-8 w-px mr-1 transition-colors duration-300 ${scrolled ? 'bg-zinc-300' : 'bg-white/20'}`}></div>
+            
+            {/* Social Icons */}
+            <div className="flex items-center space-x-3">
               {socialLinks.map((link) => {
                 const Icon = link.icon;
                 return (
@@ -120,38 +128,10 @@ export default function Navbar() {
                     rel="noreferrer noopener"
                     aria-label={link.channel}
                     onClick={() => trackSocialClick(link.channel)}
-                    className={`w-9 h-9 flex items-center justify-center rounded-full transition-all duration-300 ${
+                    className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 ${
                       scrolled
                         ? 'bg-zinc-100 text-slate-600 hover:bg-[#a68a6b] hover:text-white hover:shadow-md'
-                        : 'bg-white/10 backdrop-blur-sm text-white hover:bg-[#a68a6b] hover:text-white'
-                    }`}
-                  >
-                    <Icon />
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* --- MOBILE RIGHT SIDE (Socials + Hamburger) --- */}
-          <div className="lg:hidden flex items-center space-x-3">
-            
-            {/* Mobile Social Icons with Premium Backgrounds */}
-            <div className="flex items-center space-x-2 mr-2">
-              {socialLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.channel}
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    aria-label={link.channel}
-                    onClick={() => trackSocialClick(link.channel)}
-                    className={`w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 ${
-                      scrolled
-                        ? 'bg-zinc-100 text-slate-600 hover:bg-[#a68a6b] hover:text-white'
-                        : 'bg-white/20 backdrop-blur-sm text-white hover:bg-[#a68a6b]'
+                        : 'bg-white/10 backdrop-blur-md text-white hover:bg-[#a68a6b] hover:text-white'
                     }`}
                   >
                     <Icon />
@@ -160,17 +140,18 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Mobile Hamburger Menu Button */}
-            {!isOpen && (
+            {/* Mobile Hamburger Menu Button (Turns into X when open) */}
+            <div className="lg:hidden ml-2">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`transition-colors p-1 flex items-center justify-center ${
                   scrolled ? 'text-slate-900 hover:text-[#a68a6b]' : 'text-white hover:text-[#a68a6b]'
                 }`}
               >
-                <Menu className="w-8 h-8" />
+                {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
               </button>
-            )}
+            </div>
+
           </div>
           
         </div>
@@ -186,21 +167,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="lg:hidden bg-white border-t border-zinc-100 shadow-2xl overflow-hidden absolute w-full top-full left-0"
           >
-            <div className="px-6 pt-4 pb-8">
-              <div className="flex justify-end mb-4">
-                <button
-  onClick={() => setIsOpen(!isOpen)}
-  className={`transition-colors p-1 flex items-center justify-center ${
-    scrolled ? 'text-slate-900 hover:text-[#a68a6b]' : 'text-white hover:text-[#a68a6b]'
-  }`}
->
-  {isOpen ? (
-    <X className="w-8 h-8" />
-  ) : (
-    <Menu className="w-8 h-8" />
-  )}
-</button>
-              </div>
+            <div className="px-6 pt-2 pb-6">
               {navLinks.map((link, index) => (
                 <motion.div
                   key={link.name}

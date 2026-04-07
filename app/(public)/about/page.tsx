@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import Navbar from '../../components/layout/Navbar'; // Adjust path based on your folder structure
-import Footer from '../../components/layout/Footer'; // Adjust path based on your folder structure
 import { Play, ArrowRight, Award, Globe, Leaf, Link, Mail, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
@@ -65,7 +63,6 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-zinc-300 font-sans">
-      <Navbar />
 
       {/* 1. SIMPLE HERO SECTION (No Background Image) */}
       <main className="relative pt-40 pb-20 bg-zinc-50 border-b border-zinc-200">
