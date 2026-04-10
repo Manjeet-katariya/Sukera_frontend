@@ -10,12 +10,13 @@ interface EnquiryModalProps {
 }
 
 export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
+ const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  phone: '',
+  projectType: 'residential', // ✅ ADD THIS
+  message: ''
+});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -37,47 +38,62 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
     };
   }, [isOpen]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      const response = await fetch('https://api.rkinteriorstudio.in/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: 'Website Enquiry',
-          message: formData.message,
-          source: 'website_enquiry_modal'
-        })
-      });
+  try {
+    const API_URL =
+      process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
-      if (response.ok) {
-        setSubmitted(true);
-        setTimeout(() => {
-          onClose();
-          setSubmitted(false);
-          setFormData({ name: '', email: '', phone: '', message: '' });
-        }, 2500);
-      } else {
-        console.error('Failed to submit enquiry');
-      }
-    } catch (error) {
-      console.error('Error submitting enquiry:', error);
-    } finally {
-      setIsSubmitting(false);
+    const response = await fetch(`${API_URL}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify({
+  name: formData.name,
+  email: formData.email,
+  phone: formData.phone,
+  subject: 'Website Enquiry',
+  message: formData.message,
+  projectType: formData.projectType, // ✅ SAME AS FOOTER
+  budget: 'not-sure'
+})
+    });
+
+    const data = await response.json(); // ✅ IMPORTANT
+
+    if (response.ok && data.success) {
+      setSubmitted(true);
+
+      setTimeout(() => {
+        onClose();
+        setSubmitted(false);
+      setFormData({
+  name: '',
+  email: '',
+  phone: '',
+  projectType: 'residential', // ✅ KEEP THIS
+  message: ''
+});
+      }, 2500);
+    } else {
+      console.error('API Error:', data.message);
+      alert(data.message || 'Form submission failed');
     }
-  };
+  } catch (error) {
+    console.error('Error submitting enquiry:', error);
+    alert('Something went wrong. Please try again.');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <AnimatePresence>
@@ -174,6 +190,7 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                       className="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-200 rounded-sm focus:border-[#a68a6b] focus:ring-1 focus:ring-[#a68a6b] outline-none transition-all text-sm text-slate-900"
                     />
                   </div>
+                  
 
                   <div>
                     <label className="block text-[10px] uppercase tracking-widest text-zinc-500 mb-1.5 font-bold">Project Brief</label>
