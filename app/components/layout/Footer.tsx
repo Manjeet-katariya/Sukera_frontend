@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Send, Loader2 } from 'lucide-react';
@@ -39,12 +39,68 @@ const Footer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [socialLinks, setSocialLinks] = useState({
+    twitter: '',
+    facebook: '',
+    instagram: '',
+    linkedin: ''
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     projectType: 'residential',
     message: ''
   });
+
+  // Fetch social media links from API
+  const fetchSocialLinks = async () => {
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${API_URL}/api/social-icons`);
+      if (!response.ok) {
+        throw new Error(`Social links fetch failed with status ${response.status}`);
+      }
+      const data = await response.json();
+
+      if (data.success && data.data) {
+        setSocialLinks({
+          twitter: data.data.twitter || '',
+          facebook: data.data.facebook || '',
+          instagram: data.data.instagram || '',
+          linkedin: data.data.linkedin || ''
+        });
+      }
+    } catch (error) {
+      console.warn('Footer social links unavailable:', error);
+      setSocialLinks({
+        twitter: '',
+        facebook: '',
+        instagram: '',
+        linkedin: ''
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchSocialLinks();
+  }, []);
+
+  const trackSocialClick = (channel: string) => {
+    const payload = JSON.stringify({ channel });
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
+    if (typeof navigator !== 'undefined' && 'sendBeacon' in navigator) {
+      navigator.sendBeacon(`${API_URL}/api/social/click`, new Blob([payload], { type: 'application/json' }));
+      return;
+    }
+
+    fetch(`${API_URL}/api/social/click`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: payload
+    }).catch(() => undefined);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -135,7 +191,7 @@ const Footer = () => {
         </Link>
         
         <p className="text-zinc-400 font-light text-lg mb-12 max-w-xl text-center">
-          Have a vision? Send us your project details below and our lead architects will be in touch.
+          Have a project vision? Send us your project details below and our lead designers will be in touch.
         </p>
 
         {/* --- 2. FULL CENTERED FORM --- */}
@@ -238,23 +294,55 @@ const Footer = () => {
           
           {/* Social Icons */}
           <div className="flex items-center gap-4">
-            <a href="#" className="p-2.5 rounded-full border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#a68a6b] hover:bg-[#a68a6b] transition-all duration-300">
-              <TwitterIcon />
-            </a>
-            <a href="#" className="p-2.5 rounded-full border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#a68a6b] hover:bg-[#a68a6b] transition-all duration-300">
-              <FacebookIcon />
-            </a>
-            <a href="#" className="p-2.5 rounded-full border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#a68a6b] hover:bg-[#a68a6b] transition-all duration-300">
-              <InstagramIcon />
-            </a>
-            <a href="#" className="p-2.5 rounded-full border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#a68a6b] hover:bg-[#a68a6b] transition-all duration-300">
-              <LinkedinIcon />
-            </a>
+            {socialLinks.twitter && (
+              <a 
+                href={socialLinks.twitter} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => trackSocialClick('twitter')}
+                className="p-2.5 rounded-full border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#a68a6b] hover:bg-[#a68a6b] transition-all duration-300"
+              >
+                <TwitterIcon />
+              </a>
+            )}
+            {socialLinks.facebook && (
+              <a 
+                href={socialLinks.facebook} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => trackSocialClick('facebook')}
+                className="p-2.5 rounded-full border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#a68a6b] hover:bg-[#a68a6b] transition-all duration-300"
+              >
+                <FacebookIcon />
+              </a>
+            )}
+            {socialLinks.instagram && (
+              <a 
+                href={socialLinks.instagram} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => trackSocialClick('instagram')}
+                className="p-2.5 rounded-full border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#a68a6b] hover:bg-[#a68a6b] transition-all duration-300"
+              >
+                <InstagramIcon />
+              </a>
+            )}
+            {socialLinks.linkedin && (
+              <a 
+                href={socialLinks.linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => trackSocialClick('linkedin')}
+                className="p-2.5 rounded-full border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#a68a6b] hover:bg-[#a68a6b] transition-all duration-300"
+              >
+                <LinkedinIcon />
+              </a>
+            )}
           </div>
 
           {/* Copyright */}
           <p className="text-zinc-500 font-light text-xs uppercase tracking-wider text-center">
-            &copy; {currentYear} Architect Studio. All Rights Reserved.
+            &copy; {currentYear} RK Interior Studio. All Rights Reserved.
           </p>
           
         </div>

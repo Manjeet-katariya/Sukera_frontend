@@ -16,7 +16,8 @@ import {
   Calculator,
   X,
   Phone,
-  Shield
+  Shield,
+  Share2
 } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,7 +25,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 const baseMenuItems = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/contact-details', label: 'Site Settings', icon: Settings },
-  { href: '/admin/team', label: 'Team Roster', icon: UserPlus },
+  { href: '/admin/social-icons', label: 'Social Icons', icon: Share2 },
+  { href: '/admin/founder', label: 'Founder', icon: UserPlus },
+  { href: '/admin/team', label: 'Team Roster', icon: Users },
   { href: '/admin/projects', label: 'Projects', icon: FolderOpen },
   { href: '/admin/contacts', label: 'Inquiries', icon: Mail },
   { href: '/admin/estimates', label: 'Estimates', icon: Calculator },
@@ -50,7 +53,7 @@ export default function AdminSidebar({ sidebarOpen = false, setSidebarOpen }: Ad
     <>
       {/* --- DESKTOP SIDEBAR --- */}
       <aside 
-        className={`hidden lg:flex bg-slate-950 border-r border-slate-800/60 text-slate-300 transition-all duration-300 ease-in-out ${collapsed ? 'w-20' : 'w-64'} min-h-screen sticky top-0 flex-col overflow-hidden z-40`}
+        className={`hidden lg:flex bg-slate-950 border-r border-slate-800/60 text-slate-300 transition-all duration-300 ease-in-out ${collapsed ? 'w-20' : 'w-64'} h-screen sticky top-0 flex-col overflow-hidden z-40 shrink-0`}
       >
         {/* Logo & Toggle Header */}
         <div className="h-20 border-b border-slate-800/60 flex items-center justify-between px-4 shrink-0 relative">
@@ -62,6 +65,7 @@ export default function AdminSidebar({ sidebarOpen = false, setSidebarOpen }: Ad
                 src="/logo1.png" 
                 alt="Studio Logo" 
                 fill 
+                sizes="144px"
                 className="object-contain object-left" 
                 priority
               />
@@ -117,7 +121,7 @@ export default function AdminSidebar({ sidebarOpen = false, setSidebarOpen }: Ad
               </div>
               <div className="flex flex-col">
                 <span className="text-xs font-bold text-white uppercase tracking-wider">Admin Panel</span>
-                <span className="text-[10px] text-slate-500 font-medium">Architecture Studio</span>
+                <span className="text-[10px] text-slate-500 font-medium">RK Interior Studio</span>
               </div>
             </div>
           </div>
@@ -153,6 +157,7 @@ export default function AdminSidebar({ sidebarOpen = false, setSidebarOpen }: Ad
                     src="/logo1.png" 
                     alt="Studio Logo" 
                     fill 
+                    sizes="144px"
                     className="object-contain object-left" 
                     priority
                   />

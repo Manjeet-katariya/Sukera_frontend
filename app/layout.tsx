@@ -6,7 +6,7 @@ import { AuthProvider } from '@/app/context/AuthContext';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Architecture Studio',
+  title: 'RK Interior Studio - Refined Interior Design',
   description: 'Creating beautiful spaces that inspire and endure.',
 };
 

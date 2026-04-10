@@ -76,7 +76,7 @@ export default function ServicesPage() {
             </h2>
             <div className="h-1 w-12 md:w-20 bg-[#a68a6b] mx-auto mb-4 md:mb-8"></div>
             <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed font-light">
-              At Architecture Studio, we deliver highly customized solutions that span the entire lifecycle of your project. From initial architectural consultancy to complete turnkey handovers, our services are tailored to elevate your environment and remove the stress of construction.
+              At RK Interior Studio, we deliver highly customized solutions that span the entire lifecycle of your project. From initial interior design consultancy to complete turnkey handovers, our services are tailored to elevate your environment and remove the stress of construction.
             </p>
           </motion.div>
         </div>
@@ -93,7 +93,7 @@ export default function ServicesPage() {
               className="w-full lg:w-1/2"
             >
               <span className="text-[#a68a6b] font-semibold uppercase tracking-[0.2em] text-xs sm:text-sm mb-2 sm:mb-3 md:mb-4 block">SERVICE 01</span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 md:mb-6 leading-tight">RESIDENTIAL <br className="hidden sm:block" /> ARCHITECTURE</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 md:mb-6 leading-tight">RESIDENTIAL <br className="hidden sm:block" /> PROJECTS</h2>
               <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-light mb-6 md:mb-10">
                 We specialize in crafting bespoke living spaces that are both luxurious and liveable. From ground-up residential builds to complete home transformations, our approach ensures your sanctuary is a true reflection of your personality and lifestyle.
               </p>
@@ -171,12 +171,12 @@ export default function ServicesPage() {
               className="w-full lg:w-1/2"
             >
               <span className="text-[#a68a6b] font-semibold uppercase tracking-[0.2em] text-xs sm:text-sm mb-2 sm:mb-3 md:mb-4 block">SERVICE 03</span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 md:mb-6 leading-tight">TURNKEY <br className="hidden sm:block" /> SOLUTIONS</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 md:mb-6 leading-tight">AWARD WINNING <br className="hidden sm:block" /> DESIGN</h2>
               <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-light mb-6 md:mb-10">
-                Experience absolute peace of mind. Our Turnkey solutions offer a single point of contact from conceptualization to the final handover. We manage the design, procurement, construction, and final styling, delivering a fully realized space ready for you to step into.
+                Our designs have earned global recognition for innovation and excellence. We create award-winning interiors that set new standards in the industry, blending creativity with functionality to deliver spaces that inspire and endure.
               </p>
               <ul className="space-y-3 md:space-y-6 text-slate-800 mb-6 md:mb-12">
-                {["End-to-End Project Execution", "Single Point of Accountability", "Seamless Design-to-Build Transition", "Furniture & Decor Procurement"].map((item, idx) => (
+                {["Internationally Recognized Excellence", "Innovative Design Solutions", "Industry-Leading Aesthetics", "Functionality Meets Artistry"].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2 sm:gap-3 md:gap-4">
                     <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#a68a6b] flex-shrink-0 mt-0.5" />
                     <span className="text-sm sm:text-base md:text-lg font-medium font-serif">{item}</span>
@@ -184,7 +184,7 @@ export default function ServicesPage() {
                 ))}
               </ul>
               <Link href="/contact" className="inline-block w-full sm:w-auto text-center bg-[#a68a6b] hover:bg-[#8e7358] text-white px-4 sm:px-6 md:px-8 lg:px-10 py-2.5 sm:py-3 md:py-3.5 lg:py-4 rounded-sm font-bold uppercase tracking-wider sm:tracking-widest transition-colors duration-300 shadow-md text-xs sm:text-sm">
-                Complete Your Vision
+                Experience Excellence
               </Link>
             </motion.div>
 
@@ -233,6 +233,45 @@ export default function ServicesPage() {
               <Link href="/contact" className="inline-block w-full sm:w-auto text-center bg-white text-zinc-900 px-4 sm:px-6 md:px-8 lg:px-10 py-2.5 sm:py-3 md:py-3.5 lg:py-4 rounded-sm font-bold uppercase tracking-wider sm:tracking-widest transition-colors duration-300 hover:bg-zinc-200 shadow-md text-xs sm:text-sm">
                 Protect Your Investment
               </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- SERVICE 5: CALCULATION ESTIMATION --- */}
+      <section className="w-full py-12 sm:py-16 md:py-24 bg-white border-b border-zinc-200">
+        <div className="w-full px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-4 sm:gap-6 md:gap-8 lg:gap-16">
+            
+            {/* Text Content */}
+            <motion.div 
+              initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={containerVariants}
+              className="w-full lg:w-1/2"
+            >
+              <span className="text-[#a68a6b] font-semibold uppercase tracking-[0.2em] text-xs sm:text-sm mb-2 sm:mb-3 md:mb-4 block">SERVICE 05</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 md:mb-6 leading-tight">CALCULATION <br className="hidden sm:block" /> ESTIMATION</h2>
+              <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-light mb-6 md:mb-10">
+                Precise budgeting and cost estimation for your interior design projects. We provide detailed financial planning, material cost analysis, and comprehensive project estimates to ensure transparency and help you make informed decisions.
+              </p>
+              <ul className="space-y-3 md:space-y-6 text-slate-800 mb-6 md:mb-12">
+                {["Detailed Cost Breakdown", "Material & Labor Estimates", "Budget Planning & Optimization", "Financial Feasibility Analysis"].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2 sm:gap-3 md:gap-4">
+                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#a68a6b] flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base md:text-lg font-medium font-serif">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/contact" className="inline-block w-full sm:w-auto text-center bg-[#a68a6b] hover:bg-[#8e7358] text-white px-4 sm:px-6 md:px-8 lg:px-10 py-2.5 sm:py-3 md:py-3.5 lg:py-4 rounded-sm font-bold uppercase tracking-wider sm:tracking-widest transition-colors duration-300 shadow-md text-xs sm:text-sm">
+                Get Your Estimate
+              </Link>
+            </motion.div>
+
+            {/* Image */}
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8 }}
+              className="w-full lg:w-1/2 h-[200px] xs:h-[250px] sm:h-[350px] md:h-[450px] lg:h-[550px] overflow-hidden rounded-sm shadow-2xl"
+            >
+              <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Cost Estimation" className="w-full h-full object-cover transition-transform duration-1000 ease-in-out hover:scale-105" />
             </motion.div>
           </div>
         </div>

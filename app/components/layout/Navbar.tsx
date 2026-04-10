@@ -6,6 +6,13 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+interface SocialLinks {
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+  linkedin?: string;
+}
+
 // Custom Premium SVGs for Social Icons
 const FacebookIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -21,14 +28,59 @@ const InstagramIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const TwitterIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+  </svg>
+);
+
+const LinkedInIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+    <rect x="2" y="9" width="4" height="12"></rect>
+    <circle cx="4" cy="4" r="2"></circle>
+  </svg>
+);
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [socialLinks, setSocialLinks] = useState<SocialLinks>({});
 
-  const socialLinks = [
-    { channel: 'facebook', href: 'https://www.facebook.com', icon: FacebookIcon },
-    { channel: 'instagram', href: 'https://www.instagram.com', icon: InstagramIcon }
-  ];
+  // Fetch social media links from SocialIcons API
+  const fetchSocialLinks = async () => {
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${API_URL}/api/social-icons`);
+      if (!response.ok) {
+        throw new Error(`Social links fetch failed with status ${response.status}`);
+      }
+      const data = await response.json();
+
+      if (data.success && data.data) {
+        setSocialLinks({
+          facebook: data.data.facebook || '',
+          instagram: data.data.instagram || '',
+          twitter: data.data.twitter || '',
+          linkedin: data.data.linkedin || ''
+        });
+      }
+    } catch (error) {
+      console.warn('Navbar social links unavailable:', error);
+      setSocialLinks({});
+    }
+  };
+
+  useEffect(() => {
+    fetchSocialLinks();
+  }, []);
+
+  const socialIcons = [
+    { channel: 'facebook', href: socialLinks.facebook, icon: FacebookIcon },
+    { channel: 'instagram', href: socialLinks.instagram, icon: InstagramIcon },
+    { channel: 'twitter', href: socialLinks.twitter, icon: TwitterIcon },
+    { channel: 'linkedin', href: socialLinks.linkedin, icon: LinkedInIcon }
+  ].filter(link => link.href); // Only show if URL exists
 
   // Advanced scroll effect
   useEffect(() => {
@@ -118,7 +170,7 @@ export default function Navbar() {
             
             {/* Social Icons */}
             <div className="flex items-center space-x-3">
-              {socialLinks.map((link) => {
+              {socialIcons.map((link) => {
                 const Icon = link.icon;
                 return (
                   <a

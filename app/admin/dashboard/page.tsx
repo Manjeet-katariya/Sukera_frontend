@@ -302,10 +302,10 @@ export default function AdminDashboard() {
           {[
             { label: 'Add Project', icon: FolderOpen, link: '/admin/projects/add', color: 'text-blue-600', bg: 'bg-blue-50 hover:bg-blue-100' },
             { label: 'Add Team', icon: Users, link: '/admin/team/add', color: 'text-emerald-600', bg: 'bg-emerald-50 hover:bg-emerald-100' },
+            { label: 'Founder', icon: User, link: '/admin/founder', color: 'text-rose-600', bg: 'bg-rose-50 hover:bg-rose-100' },
             { label: 'Site Settings', icon: Settings, link: '/admin/settings', color: 'text-purple-600', bg: 'bg-purple-50 hover:bg-purple-100' },
             { label: 'View Contacts', icon: Mail, link: '/admin/contacts', color: 'text-orange-600', bg: 'bg-orange-50 hover:bg-orange-100' },
             { label: 'View Quotes', icon: Calculator, link: '/admin/estimates', color: 'text-indigo-600', bg: 'bg-indigo-50 hover:bg-indigo-100' },
-            { label: 'Manage Projects', icon: Building, link: '/admin/projects', color: 'text-rose-600', bg: 'bg-rose-50 hover:bg-rose-100' },
           ].map((action, i) => (
             <Link key={i} href={action.link} className={`flex flex-col items-center justify-center p-4 rounded-xl transition-colors ${action.bg} ${action.color}`}>
               <action.icon className="w-6 h-6 mb-2" />

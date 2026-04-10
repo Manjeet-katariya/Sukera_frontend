@@ -449,7 +449,7 @@ export default function ContactPage() {
                     ></textarea>
                   </div>
 
-                  <div>
+                  {/* <div>
                     <label className="block text-sm text-zinc-500 mb-2 font-medium">Attach Reference Image (Optional)</label>
                     <input 
                       ref={fileInputRef}
@@ -501,7 +501,7 @@ export default function ContactPage() {
                         </div>
                       </div>
                     )}
-                  </div>
+                  </div> */}
 
                   <button 
                     type="submit" 

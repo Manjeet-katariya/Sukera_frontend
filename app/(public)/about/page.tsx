@@ -15,12 +15,26 @@ interface TeamMember {
   twitter?: string;
 }
 
+interface Founder {
+  _id?: string;
+  name: string;
+  title: string;
+  quote: string;
+  image: string;
+  bio?: string;
+  email?: string;
+  linkedin?: string;
+  twitter?: string;
+}
+
 export default function AboutPage() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [founder, setFounder] = useState<Founder | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchTeamMembers();
+    fetchFounder();
   }, []);
 
   const fetchTeamMembers = async () => {
@@ -38,26 +52,39 @@ export default function AboutPage() {
     }
   };
 
+  const fetchFounder = async () => {
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${API_URL}/api/founder`);
+      const data = await response.json();
+      if (data.success && data.data) {
+        setFounder(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching founder:', error);
+    }
+  };
+
   const journeySteps = [
     {
       year: "2010",
       title: "The Inception",
-      description: "Founded with a vision to redefine urban living spaces through sustainable, minimalist architecture."
+      description: "Founded with a vision to redefine interior spaces through thoughtful design and premium craftsmanship."
     },
     {
       year: "2015",
       title: "First Major Recognition",
-      description: "Awarded the National Design Excellence Award for our groundbreaking work on the Horizon Residential Complex."
+      description: "Awarded the National Design Excellence Award for our groundbreaking work on the Horizon Residential Complex interiors."
     },
     {
       year: "2020",
       title: "Global Expansion",
-      description: "Opened our first international studio in Dubai, bringing our unique design philosophy to the global stage."
+      description: "Opened our first international studio in Dubai, bringing our unique interior design philosophy to the global stage."
     },
     {
       year: "2024",
       title: "Sustainable Future",
-      description: "Committed to 100% carbon-neutral designs, integrating advanced eco-technologies into all new projects."
+      description: "Committed to 100% eco-friendly designs, integrating sustainable materials and practices into all new projects."
     }
   ];
 
@@ -83,7 +110,7 @@ export default function AboutPage() {
               Shaping the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a68a6b] to-[#d4bca1]">Future</span> <br className="hidden md:block" /> of Spatial Design.
             </h1>
             <p className="text-xl text-slate-600 font-light max-w-2xl mx-auto">
-              We are a collective of visionary architects, interior designers, and urban planners dedicated to creating enduring masterpieces.
+              We are a collective of visionary designers and interior design professionals dedicated to creating enduring masterpieces.
             </p>
           </motion.div>
         </div>
@@ -108,10 +135,10 @@ export default function AboutPage() {
               
               <div className="space-y-6 text-lg text-slate-600 font-light leading-relaxed mb-10">
                 <p>
-                  At Architect Studio, we believe that architecture is more than just erecting buildings; it’s about crafting environments that elevate the human experience. Every line drawn and material chosen is infused with purpose.
+                  At RK Interior Studio, every space begins with a deep focus on detail—the foundation of exceptional design. From material selection to finishing touches, each element is carefully considered and thoughtfully executed. Our approach goes beyond aesthetics, creating interiors that are refined, functional, and timeless. It is this dedication to detail that defines our design philosophy and shapes spaces that truly stand apart.
                 </p>
                 <p>
-                  Our interior design philosophy bridges the gap between raw functionality and ultimate luxury. We meticulously source premium materials and collaborate with master craftsmen to ensure every detail resonates with our clients' visions.
+                  We craft smart, elegant and customised interiors that balance design, comfort and functionality. Our expertise spans residential, commercial and bespoke interior solutions—where design meets precision and every detail is thoughtfully executed.
                 </p>
               </div>
 
@@ -150,36 +177,43 @@ export default function AboutPage() {
       {/* 3. MEET THE FOUNDER */}
       <section className="py-24 bg-zinc-50 border-t border-zinc-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-zinc-900 rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row">
-            
-            {/* Founder Image */}
-            <div className="md:w-2/5 h-[400px] md:h-auto relative">
-              <img 
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Founder Portrait" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Founder Text */}
-            <div className="md:w-3/5 p-10 md:p-16 flex flex-col justify-center relative">
-              {/* Decorative Quote Mark */}
-              <span className="absolute top-10 left-10 text-9xl text-zinc-800 font-serif opacity-50 pointer-events-none">"</span>
+          {founder ? (
+            <div className="bg-zinc-900 rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row">
               
-              <div className="relative z-10">
-                <h3 className="text-sm font-semibold text-[#a68a6b] uppercase tracking-widest mb-2">Meet The Founder</h3>
-                <h2 className="text-4xl font-serif text-white mb-6">Elena Rostova</h2>
-                <p className="text-xl text-zinc-300 font-light leading-relaxed mb-8 italic">
-                  "Architecture is the silent poetry of our daily lives. We don't just build walls; we frame memories, structure workflows, and design the sanctuaries where life unfolds."
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="h-px w-12 bg-zinc-700"></div>
-                  <span className="text-sm text-zinc-400 uppercase tracking-widest font-semibold">Principal Architect & CEO</span>
+              {/* Founder Image */}
+              <div className="md:w-2/5 h-[400px] md:h-auto relative">
+                <img 
+                  src={founder.image} 
+                  alt={founder.name} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Founder Text */}
+              <div className="md:w-3/5 p-10 md:p-16 flex flex-col justify-center relative">
+                {/* Decorative Quote Mark */}
+                <span className="absolute top-10 left-10 text-9xl text-zinc-800 font-serif opacity-50 pointer-events-none">"</span>
+                
+                <div className="relative z-10">
+                  <h3 className="text-sm font-semibold text-[#a68a6b] uppercase tracking-widest mb-2">Meet The Founder</h3>
+                  <h2 className="text-4xl font-serif text-white mb-6">{founder.name}</h2>
+                  <p className="text-xl text-zinc-300 font-light leading-relaxed mb-8 italic">
+                    "{founder.quote}"
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <div className="h-px w-12 bg-zinc-700"></div>
+                    <span className="text-sm text-zinc-400 uppercase tracking-widest font-semibold">{founder.title}</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <div className="inline-block animate-spin rounded-full h-10 w-10 border-b-2 border-[#a68a6b]"></div>
+              <p className="text-zinc-500 mt-4 uppercase tracking-widest text-sm font-semibold">Loading founder...</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -202,7 +236,7 @@ export default function AboutPage() {
         </div>
         <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-6">Our Team</h2>
         <p className="text-lg text-slate-600 font-light max-w-2xl mx-auto">
-          Meet the visionary architects and designers who turn blank canvases into structural masterpieces.
+              Meet the visionary designers and interior design professionals who transform blank canvases into refined spaces.
         </p>
       </motion.div>
     </div>
@@ -366,7 +400,7 @@ export default function AboutPage() {
                 The Art of Space
               </h2>
               <p className="text-lg text-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
-                Step inside our world. Experience the meticulous craftsmanship and design philosophy behind our most celebrated architectural projects.
+                Step inside our world. Experience the meticulous craftsmanship and design philosophy behind our most celebrated interior design projects.
               </p>
             </motion.div>
           </div>

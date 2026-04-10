@@ -50,7 +50,7 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 overflow-hidden">
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
@@ -59,19 +59,26 @@ export default function AdminLayout({
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Fixed/Sticky */}
       <AdminSidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
-        <AdminTopbar
-          onMenuClick={() => setSidebarOpen(true)}
-        />
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
-          {children}
+      {/* Main Content Container - Scrollable */}
+      <div className="flex-1 flex flex-col min-w-0 h-screen">
+        {/* Topbar - Fixed at top */}
+        <div className="shrink-0">
+          <AdminTopbar
+            onMenuClick={() => setSidebarOpen(true)}
+          />
+        </div>
+        
+        {/* Main Content Area - Scrollable */}
+        <main className="flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="p-4 lg:p-6">
+            {children}
+          </div>
         </main>
       </div>
     </div>

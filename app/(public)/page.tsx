@@ -74,7 +74,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.9 }} 
               className="text-zinc-300 text-base sm:text-lg md:text-xl leading-relaxed font-light max-w-xl"
             >
-              We transform empty spaces into enduring legacies. Explore our curated portfolio of global architectural landmarks, where form meets ultimate function.
+              We transform empty spaces into refined sanctuaries. Explore our curated portfolio of sophisticated interior designs, where elegance meets functionality.
             </motion.p>
           </motion.div>
         </div>
@@ -115,27 +115,27 @@ export default function Home() {
                 <span className="text-[#a68a6b] font-semibold uppercase tracking-widest text-sm">Who We Are</span>
               </div>
               
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-8 lg:mb-10 leading-snug uppercase">
-                RAJASTHAN'S LEADING ARCHITECTURE, URBAN PLANNING & INTERIOR DESIGN PRACTICE
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-slate-900 mb-8 lg:mb-10 leading-snug not-uppercase">
+                RK Interior Studio is a refined interior design firm dedicated to crafting sophisticated and timeless spaces. We seamlessly combine thoughtful design, premium materials, and meticulous attention to detail to create environments that embody elegance and individuality.
               </h2>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8 lg:mb-10 pb-8 lg:pb-10 border-b border-zinc-200">
                 <div>
-                  <h4 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">250+</h4>
-                  <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest font-semibold">Projects</p>
+                  <h4 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">500+</h4>
+                  <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest font-semibold">Spaces Curated</p>
                 </div>
                 <div>
-                  <h4 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">37,000+</h4>
-                  <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest font-semibold">Housing Units</p>
+                  <h4 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">10+</h4>
+                  <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest font-semibold">Years Excellence</p>
                 </div>
                 <div className="col-span-2 sm:col-span-1">
-                  <h4 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">55 M Sq ft.</h4>
-                  <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest font-semibold">Area Designed</p>
+                  <h4 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">100%</h4>
+                  <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest font-semibold">Client Satisfaction</p>
                 </div>
               </div>
               
               <p className="text-base sm:text-lg text-slate-600 font-light leading-relaxed">
-                With a portfolio of over 55 million sq. ft. in built projects, we lead the way in architecture, urban planning, and interior design across India and beyond. Our work is known for its transformative impact on cities and communities.
+                With a growing portfolio of thoughtfully designed projects, RK Interior Studio brings expertise in interior design and space planning. Our work is defined by attention to detail, refined aesthetics, and a commitment to creating spaces that elevate everyday living.
               </p>
             </motion.div>
             
@@ -157,7 +157,7 @@ export default function Home() {
               viewport={{ once: true }} 
               className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 font-serif"
             >
-              Our Philosophy
+              Our Process
             </motion.h2>
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }} 
@@ -172,7 +172,7 @@ export default function Home() {
               transition={{ delay: 0.2 }} 
               className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-light"
             >
-              Excellence is not an act, but a habit. We bring your architectural vision to life with unrivaled creativity.
+              From concept to completion, our process is rooted in meticulous planning, thoughtful collaboration, and unwavering attention to detail. Every project reflects our commitment to excellence and refined design.
             </motion.p>
           </div>
 

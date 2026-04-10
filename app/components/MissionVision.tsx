@@ -29,11 +29,11 @@ export default function MissionVision() {
           </h2>
           
           <h3 className="text-4xl md:text-5xl font-serif mb-6 leading-tight text-slate-900 transition-colors duration-500">
-            Elevating the human experience through design.
+            Built on Detail. Defined by Design.
           </h3>
           
           <p className="text-slate-600 text-lg font-light leading-relaxed">
-            We are committed to delivering architectural excellence by blending innovative sustainability with timeless aesthetics. Our mission is to transform our clients' most ambitious visions into structural realities that improve the way people live, work, and interact.
+            At RK Interior Studio, every space begins with a deep focus on detail—the foundation of exceptional design. From material selection to finishing touches, each element is carefully considered and thoughtfully executed. Our approach goes beyond aesthetics, creating interiors that are refined, functional, and timeless.
           </p>
         </div>
         
@@ -63,11 +63,11 @@ export default function MissionVision() {
           </h2>
           
           <h3 className="text-4xl md:text-5xl font-serif mb-6 leading-tight text-slate-900 transition-colors duration-500">
-            Shaping the legacy of tomorrow's skylines.
+            Crafting the essence of modern living.
           </h3>
           
           <p className="text-slate-600 text-lg font-light leading-relaxed">
-            To be globally recognized as the vanguard of modern architecture. We envision a future where every structure we design acts as a catalyst for community growth, environmental harmony, and unparalleled spatial beauty.
+            To be globally recognized as the vanguard of contemporary interior design. We envision a future where every space we create acts as a catalyst for personal well-being, aesthetic harmony, and unparalleled living experiences.
           </p>
         </div>
       </motion.div>
