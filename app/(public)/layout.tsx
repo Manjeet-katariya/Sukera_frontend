@@ -52,59 +52,13 @@ export default function PublicLayout({
       <Footer />
 
       {/* --- FLOATING WHATSAPP BUTTON --- */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1, type: "spring", stiffness: 200 }}
-        className="fixed bottom-6 right-6 z-50 flex items-center"
-      >
-        <div className="relative group flex items-center">
-          
-          {/* Tooltip / Message Bubble */}
-          <div 
-            className={`absolute right-full mr-4 flex items-center transition-all duration-500 ease-out ${
-              autoShowTooltip 
-                ? 'opacity-100 translate-x-0' 
-                : 'opacity-0 translate-x-4 group-hover:translate-x-0 group-hover:opacity-100'
-            }`}
-          >
-           <a 
-  href="https://wa.me/918619633247"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="rounded-full bg-white px-5 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-sm text-slate-800 font-semibold whitespace-nowrap border border-zinc-100 hover:text-[#25D366] transition-colors"
->
-  For more information, contact us
-</a>
-            {/* Little Triangle Pointer */}
-            <div className="absolute right-[-5px] top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-white border-r border-t border-zinc-100"></div>
-          </div>
-
-          {/* Main WhatsApp Button */}
-          <a
-  href="https://wa.me/918619633247"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="relative flex h-[60px] w-[60px] items-center justify-center"
-            aria-label="Contact us on WhatsApp"
-          >
-            {/* Pulsing Background */}
-            <div className="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-ping" />
-            
-            {/* Solid Button */}
-            <div className="relative flex h-full w-full items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(37,211,102,0.5)]">
-              <WhatsappIcon className="h-8 w-8 drop-shadow-md" />
-            </div>
-          </a>
-
-        </div>
-      </motion.div>
+  
 
       {/* --- ENQUIRY MODAL --- */}
-      <EnquiryModal
+      {/* <EnquiryModal
         isOpen={showEnquiryModal}
         onClose={() => setShowEnquiryModal(false)}
-      />
+      /> */}
     </>
   );
 }
