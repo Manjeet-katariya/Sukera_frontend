@@ -243,7 +243,7 @@ export default function Home() {
               </h2>
               <div className="space-y-5 text-[#0A0A0A]/60 text-base leading-relaxed font-light mb-12">
                 <p>
-                  At Sukera Dexterity & SP Architects, we design spaces that feel as good as they look. With a focus on creativity, functionality, and detail, we create interiors tailored to your lifestyle — where every space is thoughtfully designed and uniquely yours.
+                  At Sukera Dexterity , we design spaces that feel as good as they look. With a focus on creativity, functionality, and detail, we create interiors tailored to your lifestyle — where every space is thoughtfully designed and uniquely yours.
                 </p>
               </div>
               <Link href="/about"
