@@ -113,7 +113,7 @@ export default function AboutPage() {
               <div className="h-px w-12 bg-[#C9A96E]" />
               <span className="text-[#C9A96E] text-[9px] font-black uppercase tracking-[0.4em]">About The Studio</span>
             </div>
-            <h1 className="text-6xl sm:text-8xl lg:text-[10rem] font-black text-white tracking-tight font-serif leading-none mb-8">
+            <h1 className="text-6xl sm:text-8xl lg:text-[5rem] font-black text-white tracking-tight font-serif leading-none mb-8">
               ABOUT<br />
               <span className="text-[#C9A96E]">US</span>
             </h1>
@@ -137,14 +137,14 @@ export default function AboutPage() {
             >
               <div className="flex items-center gap-4 mb-8">
                 <div className="h-px w-10 bg-[#C9A96E]" />
-                <span className="text-[9px] font-black uppercase tracking-[0.4em] text-[#C9A96E]">The Studio</span>
+                <span className="text-[9px] font-black uppercase tracking-[0.4em] text-[#C9A96E]">Our Design Philosophy</span>
               </div>
-              <h2 className="text-4xl lg:text-6xl font-black text-[#0A0A0A] font-serif mb-2 leading-tight">Designing spaces that</h2>
-              <h2 className="text-4xl lg:text-6xl font-black text-[#0A0A0A] font-serif mb-8 leading-tight italic font-light">inspire and endure.</h2>
+              <h2 className="text-4xl lg:text-6xl font-black text-[#0A0A0A] font-serif mb-2 leading-tight">We craft sophisticated spaces where</h2>
+              <h2 className="text-4xl lg:text-6xl font-black text-[#0A0A0A] font-serif mb-8 leading-tight italic font-light">elegance meets precision.</h2>
               <div className="h-[2px] w-16 bg-[#C9A96E] mb-8" />
               <div className="space-y-5 text-[#0A0A0A]/60 text-base leading-relaxed font-light mb-10">
-                <p>At our Studio, every space begins with a deep focus on detail — the foundation of exceptional design. From material selection to finishing touches, each element is carefully considered and thoughtfully executed.</p>
-                <p>We craft smart, elegant and customised interiors that balance design, comfort and functionality. Our expertise spans residential, commercial and bespoke interior solutions.</p>
+                <p>We craft sophisticated spaces where elegance meets precision. Through curated materials, refined detailing, and a focus on timeless design, we create interiors that exude luxury while remaining functional and enduring.</p>
+                <p>Inspiring spaces with lasting impact. Developing spaces that combine visual appeal, functionality, and durability—ensuring they influence users positively and perform efficiently in the long run.</p>
               </div>
               <div className="grid grid-cols-2 gap-8 pt-8 border-t border-black/10">
                 {[{ v: '15+', l: 'Years Experience' }, { v: '120', l: 'Global Awards' }].map((s, i) => (

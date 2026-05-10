@@ -28,21 +28,85 @@ const LinkedinIcon = () => (
   </svg>
 );
 
+const YoutubeIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.95C18.88 4 12 4 12 4s-6.88 0-8.59.47a2.78 2.78 0 0 0-1.95 1.95A29.68 29.68 0 0 0 1 12a29.68 29.68 0 0 0 .47 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29.68 29.68 0 0 0 23 12a29.68 29.68 0 0 0-.46-5.58z" />
+    <polygon points="10 15 15 12 10 9 10 15" />
+  </svg>
+);
+
+const PinterestIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2.04C7.2 2.04 4 5 4 8.77c0 2.44 1.24 4.56 3.08 5.37.34.13.5.06.58-.24.06-.26.2-1.02.26-1.3.09-.38.05-.52-.22-.85-0.63-.74-1.03-1.7-1.03-2.73 0-3.53 2.8-6.54 6.58-6.54 3.55 0 6.15 2.53 6.15 5.92 0 3.52-2.22 6.53-5.29 6.53-1.03 0-2-.52-2.33-1.12 0 0-.5 1.88-.62 2.31-.22.76-.82 1.71-1.23 2.29C8.8 22.9 10.35 23.21 12 23.21c4.8 0 8-2.96 8-6.73S16.8 2.04 12 2.04z" />
+  </svg>
+);
+
+interface ContactDetails {
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
+  phone: string;
+  email: string;
+  businessHours: {
+    [day: string]: {
+      closed?: boolean;
+      open?: string;
+      close?: string;
+    };
+  };
+}
+
+const formatAddress = (address: ContactDetails['address']) => {
+  return `${address.street}, ${address.city}, ${address.state}${address.zipCode ? ` ${address.zipCode}` : ''}`;
+};
+
+const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
+
+const formatBusinessHours = (hours: ContactDetails['businessHours']) => {
+  return Object.entries(hours)
+    .map(([day, schedule]) => {
+      const label = capitalize(day);
+      if (schedule.closed) {
+        return `${label}: Closed`;
+      }
+      return `${label}: ${schedule.open || '--'} - ${schedule.close || '--'}`;
+    })
+    .join('\n');
+};
+
 const Footer = () => {
   const year = new Date().getFullYear();
-  const [socialLinks, setSocialLinks] = useState({ twitter: '', facebook: '', instagram: '', linkedin: '' });
+  const [socialLinks, setSocialLinks] = useState({ twitter: '', facebook: '', instagram: '', linkedin: '', youtube: '', pinterest: '' });
+  const [contactDetails, setContactDetails] = useState<ContactDetails | null>(null);
 
   useEffect(() => {
-    const fetch_ = async () => {
+    const fetchSocialLinks = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
         const res = await fetch(`${API_URL}/api/social-icons`);
         if (!res.ok) throw new Error('failed');
         const data = await res.json();
-        if (data.success && data.data) setSocialLinks({ ...socialLinks, ...data.data });
+        if (data.success && data.data) setSocialLinks(data.data);
       } catch { /* silent fail */ }
     };
-    fetch_();
+    fetchSocialLinks();
+  }, []);
+
+  useEffect(() => {
+    const fetchContactDetails = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${API_URL}/api/contact-details`);
+        if (!res.ok) throw new Error('failed');
+        const data = await res.json();
+        if (data.success && data.data) setContactDetails(data.data);
+      } catch { /* silent fail */ }
+    };
+    fetchContactDetails();
   }, []);
 
   const trackSocialClick = (channel: string) => {
@@ -58,6 +122,8 @@ const Footer = () => {
     { key: 'facebook', href: socialLinks.facebook, Icon: FacebookIcon },
     { key: 'instagram', href: socialLinks.instagram, Icon: InstagramIcon },
     { key: 'linkedin', href: socialLinks.linkedin, Icon: LinkedinIcon },
+    { key: 'youtube', href: socialLinks.youtube, Icon: YoutubeIcon },
+    { key: 'pinterest', href: socialLinks.pinterest, Icon: PinterestIcon },
   ].filter(s => s.href);
 
   return (
@@ -92,6 +158,24 @@ const Footer = () => {
               <div className="text-3xl font-black text-[#C9A96E] font-serif mb-1">2,00,000<span className="text-[#C9A96E]">+</span></div>
               <div className="text-[9px] uppercase tracking-[0.3em] text-white/30 font-bold">People follow our journey</div>
             </div>
+
+            {socials.length > 0 && (
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                {socials.map(({ key, href, Icon }) => (
+                  <a
+                    key={key}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={key}
+                    onClick={() => trackSocialClick(key)}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/80 transition-all duration-200 hover:border-[#C9A96E] hover:text-[#C9A96E] hover:bg-white/10"
+                  >
+                    <Icon />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Studio links */}
@@ -125,12 +209,25 @@ const Footer = () => {
           <div className="lg:col-span-3">
             <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-[#C9A96E] mb-6">Contact</h4>
             <div className="space-y-4 text-white/40 text-sm font-light">
-              <p className="leading-relaxed">Jaike-e-Jaipur chowpatty, sirsi road, Jaipur</p>
-              <p>
-                <a href="mailto:sukeradexterity@gmail.com" className="hover:text-[#C9A96E] transition-colors">sukeradexterity@gmail.com</a>
+              <p className="leading-relaxed">
+                {contactDetails ? formatAddress(contactDetails.address) : 'Loading address...'}
               </p>
-              <p>+91-8619633247</p>
-              <p>Monday to Friday: 11:00 AM to 6:00 PM</p>
+              <p>
+                {contactDetails?.email ? (
+                  <a
+                    href={`mailto:${contactDetails.email}`}
+                    className="hover:text-[#C9A96E] transition-colors"
+                  >
+                    {contactDetails.email}
+                  </a>
+                ) : (
+                  <span className="text-white/40">Loading email...</span>
+                )}
+              </p>
+              <p>{contactDetails?.phone || 'Loading phone...'}</p>
+              <p className="whitespace-pre-line">
+                {contactDetails ? formatBusinessHours(contactDetails.businessHours) : 'Loading business hours...'}
+              </p>
             </div>
           </div>
         </div>
@@ -146,18 +243,6 @@ const Footer = () => {
             <Link href="/privacy" className="text-white/20 hover:text-[#C9A96E] text-[9px] uppercase tracking-[0.2em] font-bold transition-colors">Privacy</Link>
             <Link href="/terms" className="text-white/20 hover:text-[#C9A96E] text-[9px] uppercase tracking-[0.2em] font-bold transition-colors">Terms</Link>
           </div>
-
-          {socials.length > 0 && (
-            <div className="flex items-center gap-5">
-              {socials.map(({ key, href, Icon }) => (
-                <a key={key} href={href} target="_blank" rel="noopener noreferrer"
-                  aria-label={key} onClick={() => trackSocialClick(key)}
-                  className="text-white/20 hover:text-[#C9A96E] transition-all duration-200 hover:-translate-y-0.5">
-                  <Icon />
-                </a>
-              ))}
-            </div>
-          )}
 
         </div>
       </div>

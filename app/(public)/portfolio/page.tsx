@@ -92,14 +92,14 @@ export default function PortfolioPage() {
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
             <div className="flex items-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#C9A96E]" />
-              <span className="text-[#C9A96E] text-[9px] font-black uppercase tracking-[0.4em]">Our Work</span>
+              <span className="text-[#C9A96E] text-[9px] font-black uppercase tracking-[0.4em]">Portfolio</span>
             </div>
-            <h1 className="text-6xl sm:text-8xl lg:text-[10rem] font-black text-white tracking-tight font-serif leading-none">
-              SELECTED<br />
-              <span className="text-[#C9A96E]">PORTFOLIO</span>
+            <h1 className="text-6xl sm:text-8xl lg:text-[5rem] font-black text-white tracking-tight font-serif leading-none">
+              Our Creations<br />
+              <span className="text-[#C9A96E]">& Concepts</span>
             </h1>
             <p className="text-white/50 text-base font-light mt-8 max-w-lg">
-              Explore our collection of architectural masterpieces, where visionary design meets flawless execution.
+              Designing spaces that inspire and endure.
             </p>
           </motion.div>
         </div>

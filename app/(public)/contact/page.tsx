@@ -237,7 +237,16 @@ export default function ContactPage() {
               {
                 Icon: Clock,
                 title: 'Business Hours',
-                content: 'Mon - Fri: 09:00 - 18:00\nSat: 10:00 - 16:00\nSun: Closed'
+                content: loadingContact
+                  ? 'Loading...'
+                  : contactDetails?.businessHours
+                    ? Object.entries(contactDetails.businessHours)
+                        .map(([day, hours]) => {
+                          const label = day.charAt(0).toUpperCase() + day.slice(1);
+                          return hours.closed ? `${label}: Closed` : `${label}: ${hours.open || '--'} - ${hours.close || '--'}`;
+                        })
+                        .join('\n')
+                    : 'Business hours not available'
               },
             ].map(({ Icon, title, content }, i) => (
               <motion.div

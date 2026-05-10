@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, CheckCircle } from 'lucide-react';
 
@@ -35,7 +35,7 @@ const services = [
   },
 ];
 
-const process = [
+const processSteps = [
   { num: '01', title: 'Discovery', desc: 'We listen, analyse, and immerse ourselves in your vision and lifestyle.' },
   { num: '02', title: 'Concept', desc: 'Spatial layouts, mood boards, and 3D previews that define the direction.' },
   { num: '03', title: 'Execution', desc: 'Procurement, contractor management, and meticulous quality audits.' },
@@ -56,11 +56,67 @@ const specialConditions = [
   { title: 'Special Attention', desc: 'Enhanced service class for discerning clients who expect nothing but excellence.', icon: <CheckCircle className="w-8 h-8 text-[#C9A96E]" /> },
 ];
 
+interface ContactDetails {
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
+  phone: string;
+  email: string;
+  businessHours: {
+    [day: string]: {
+      closed?: boolean;
+      open?: string;
+      close?: string;
+    };
+  };
+}
+
+const formatAddress = (address: ContactDetails['address']) => {
+  return `${address.street}, ${address.city}, ${address.state}${address.zipCode ? ` ${address.zipCode}` : ''}`;
+};
+
+const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
+
+const formatBusinessHours = (hours: ContactDetails['businessHours']) => {
+  return Object.entries(hours)
+    .map(([day, schedule]) => {
+      const label = capitalize(day);
+      if (schedule.closed) {
+        return `${label}: Closed`;
+      }
+      return `${label}: ${schedule.open || '--'} - ${schedule.close || '--'}`;
+    })
+    .join('\n');
+};
+
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const [contactDetails, setContactDetails] = useState<ContactDetails | null>(null);
+  const [loadingContact, setLoadingContact] = useState(true);
+
+  useEffect(() => {
+    const fetchContactDetails = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${API_URL}/api/contact-details`);
+        if (!res.ok) throw new Error('failed');
+        const data = await res.json();
+        if (data.success && data.data) setContactDetails(data.data);
+      } catch {
+        setContactDetails(null);
+      } finally {
+        setLoadingContact(false);
+      }
+    };
+    fetchContactDetails();
+  }, []);
 
   return (
     <div className="bg-[#0A0A0A] selection:bg-[#C9A96E] selection:text-black">
@@ -95,7 +151,7 @@ export default function Home() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-6xl sm:text-7xl lg:text-[7rem] xl:text-[9rem] font-black text-white tracking-tighter leading-[0.9] mb-10 font-serif">
+            <h1 className="text-6xl sm:text-7xl lg:text-[5rem] xl:text-[5rem] font-black text-white tracking-tighter leading-[0.9] mb-10 font-serif">
               Spaces<br />
               <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.2)' }}>We've</span><br />
               <span className="text-[#C9A96E]">Transformed.</span>
@@ -309,7 +365,7 @@ export default function Home() {
 
           {/* Grid Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-black/10 shadow-xl">
-            {process.map((step, i) => (
+            {processSteps.map((step, i) => (
               <motion.div
                 key={step.num}
                 initial={{ opacity: 0, y: 20 }}
@@ -438,7 +494,11 @@ export default function Home() {
             >
               <h3 className="text-[#C9A96E] text-lg font-black uppercase tracking-[0.1em] mb-4">Address</h3>
               <p className="text-white/60 text-sm leading-relaxed">
-                Jaike-e-Jaipur Chowpatty, Sirsi Road, Jaipur
+                {loadingContact
+                  ? 'Loading address...'
+                  : contactDetails
+                  ? formatAddress(contactDetails.address)
+                  : 'Address not available'}
               </p>
             </motion.div>
 
@@ -451,7 +511,9 @@ export default function Home() {
             >
               <h3 className="text-[#C9A96E] text-lg font-black uppercase tracking-[0.1em] mb-4">Call Us</h3>
               <p className="text-white/60 text-sm leading-relaxed">
-                +91-8619633247
+                {loadingContact
+                  ? 'Loading phone...'
+                  : contactDetails?.phone || 'Phone not available'}
               </p>
             </motion.div>
 
@@ -464,7 +526,9 @@ export default function Home() {
             >
               <h3 className="text-[#C9A96E] text-lg font-black uppercase tracking-[0.1em] mb-4">Email Us</h3>
               <p className="text-white/60 text-sm leading-relaxed">
-                sukeradexterity@gmail.com
+                {loadingContact
+                  ? 'Loading email...'
+                  : contactDetails?.email || 'Email not available'}
               </p>
             </motion.div>
 
@@ -476,9 +540,12 @@ export default function Home() {
               className="bg-white/5 backdrop-blur-md border border-white/10 p-8 hover:bg-white/10 transition-all duration-500"
             >
               <h3 className="text-[#C9A96E] text-lg font-black uppercase tracking-[0.1em] mb-4">Business Hours</h3>
-              <p className="text-white/60 text-sm leading-relaxed">
-                Monday to Friday<br />
-                11:00 AM to 6:00 PM
+              <p className="text-white/60 text-sm leading-relaxed whitespace-pre-line">
+                {loadingContact
+                  ? 'Loading business hours...'
+                  : contactDetails
+                  ? formatBusinessHours(contactDetails.businessHours)
+                  : 'Business hours not available'}
               </p>
             </motion.div>
           </div>

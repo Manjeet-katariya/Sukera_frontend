@@ -5,39 +5,6 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react'; // Make sure lucide-react is installed
 
-// Custom Social Icons
-const FacebookIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  </svg>
-);
-const InstagramIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-  </svg>
-);
-const TwitterIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-  </svg>
-);
-const LinkedInIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect x="2" y="9" width="4" height="12" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
-interface SocialLinks {
-  facebook?: string;
-  instagram?: string;
-  twitter?: string;
-  linkedin?: string;
-}
-
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Portfolio', href: '/portfolio' },
@@ -49,7 +16,6 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [socialLinks, setSocialLinks] = useState<SocialLinks>({});
   const [scrolled, setScrolled] = useState(false);
 
   // Handle scroll state for navbar background transition
@@ -64,39 +30,6 @@ export default function Navbar() {
     if (isOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
   }, [isOpen]);
-
-  // Fetch social links
-  useEffect(() => {
-    const fetchSocialLinks = async () => {
-      try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-        const res = await fetch(`${API_URL}/api/social-icons`);
-        if (!res.ok) throw new Error('failed');
-        const data = await res.json();
-        if (data.success && data.data) setSocialLinks(data.data);
-      } catch {
-        setSocialLinks({});
-      }
-    };
-    fetchSocialLinks();
-  }, []);
-
-  const trackSocialClick = (channel: string) => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-    const payload = JSON.stringify({ channel });
-    if (navigator?.sendBeacon) {
-      navigator.sendBeacon(`${API_URL}/api/social/click`, new Blob([payload], { type: 'application/json' }));
-    } else {
-      fetch(`${API_URL}/api/social/click`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true, body: payload }).catch(() => {});
-    }
-  };
-
-  const socials = [
-    { key: 'facebook', href: socialLinks.facebook, Icon: FacebookIcon },
-    { key: 'instagram', href: socialLinks.instagram, Icon: InstagramIcon },
-    { key: 'twitter', href: socialLinks.twitter, Icon: TwitterIcon },
-    { key: 'linkedin', href: socialLinks.linkedin, Icon: LinkedInIcon },
-  ].filter(s => s.href);
 
   return (
     <>
@@ -136,22 +69,8 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Right side: Socials + CTA */}
+            {/* Right side CTA */}
             <div className="flex items-center gap-6">
-              {socials.length > 0 && (
-                <div className="hidden lg:flex items-center gap-4">
-                  {socials.map(({ key, href, Icon }) => (
-                    <a key={key} href={href} target="_blank" rel="noopener noreferrer"
-                      aria-label={key} onClick={() => trackSocialClick(key)}
-                      className={`transition-colors duration-200 ${scrolled ? 'text-[#0A0A0A]/30 hover:text-[#C4A56D]' : 'text-white/40 hover:text-white'}`}>
-                      <Icon />
-                    </a>
-                  ))}
-                  <div className={`w-px h-4 ml-1 transition-colors duration-500 ${scrolled ? 'bg-[#0A0A0A]/10' : 'bg-white/20'}`} />
-                </div>
-              )}
-
-              {/* Dynamic CTA Button */}
               <Link href="/contact"
                 className={`hidden lg:inline-flex items-center justify-center text-[9px] font-black uppercase tracking-[0.25em] px-8 py-3.5 transition-all duration-400 ${
                   scrolled 
@@ -239,19 +158,6 @@ export default function Navbar() {
                 </motion.div>
               </div>
 
-              {/* Mobile Footer / Socials */}
-              <div className="p-8 bg-stone-50 border-t border-stone-100">
-                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#0A0A0A]/40 mb-4">Connect With Us</p>
-                <div className="flex gap-5">
-                  {socials.map(({ key, href, Icon }) => (
-                    <a key={key} href={href} target="_blank" rel="noopener noreferrer"
-                      onClick={() => trackSocialClick(key)}
-                      className="text-[#0A0A0A]/40 hover:text-[#C4A56D] transition-colors">
-                      <Icon />
-                    </a>
-                  ))}
-                </div>
-              </div>
             </motion.div>
           </>
         )}

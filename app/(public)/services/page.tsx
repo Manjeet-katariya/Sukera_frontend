@@ -88,15 +88,14 @@ export default function ServicesPage() {
           <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
             <div className="flex items-center gap-4 mb-6 sm:mb-8">
               <div className="w-8 sm:w-12 h-[2px]" style={{ backgroundColor: THEME.accent }} />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em]" style={{ color: THEME.accent }}>Our Expertise</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em]" style={{ color: THEME.accent }}>Our Proficiency</span>
             </div>
-            <h1 className="text-5xl sm:text-7xl lg:text-[6rem] xl:text-[8rem] font-black text-white tracking-tighter leading-[1] sm:leading-[0.9] mb-6 sm:mb-10 font-serif">
-              Services<br />
-              <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>That</span><br />
-              <span style={{ color: THEME.accent }}>Deliver.</span>
+            <h1 className="text-5xl sm:text-7xl lg:text-[6rem] xl:text-[5rem] font-black text-white  leading-[1] sm:leading-[0.9] mb-6 sm:mb-10 font-serif">
+              Shaping spaces with knowledge,<br />
+              creativity, and precision.
             </h1>
             <p className="text-white/50 text-base sm:text-lg font-light mt-4 sm:mt-6 max-w-lg">
-              Creating inspired spaces through strategic design, meticulous management, and seamless execution.
+              Design That Performs. Our approach covers every stage of your project with tailored solutions. Starting from design consultation to complete turnkey execution, we focus on creating refined spaces while making the entire process simple and stress-free.
             </p>
           </motion.div>
 

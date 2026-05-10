@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Edit, Save, X, Upload, Loader2 } from 'lucide-react';
 
@@ -23,9 +23,11 @@ export default function FounderManagementPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadCompleted, setUploadCompleted] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [formData, setFormData] = useState<Founder>({
     name: '',
     title: '',
@@ -72,6 +74,7 @@ export default function FounderManagementPage() {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedFile(file);
+      setUploadCompleted(false);
       // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -79,6 +82,10 @@ export default function FounderManagementPage() {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleSelectImage = () => {
+    fileInputRef.current?.click();
   };
 
   const uploadImageToCloudinary = async (file: File) => {
@@ -102,6 +109,7 @@ export default function FounderManagementPage() {
         setMessage({ type: 'success', text: 'Image uploaded successfully!' });
         setSelectedFile(null);
         setImagePreview('');
+        setUploadCompleted(true);
         return uploadResult.url;
       } else {
         throw new Error(uploadResult.message || 'Upload failed');
@@ -157,6 +165,9 @@ export default function FounderManagementPage() {
       twitter: '',
       instagram: ''
     });
+    setSelectedFile(null);
+    setImagePreview('');
+    setUploadCompleted(false);
     setIsEditing(false);
   };
 
@@ -315,52 +326,82 @@ export default function FounderManagementPage() {
                   <label className="block text-sm font-semibold text-zinc-700 mb-3">
                     Founder Image
                   </label>
-                  <div className="flex gap-4">
-                    <div className="flex-1">
-                      <label className="border-2 border-dashed border-zinc-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#a68a6b] transition-colors">
+                  <div className="flex flex-col lg:flex-row gap-4">
+                    <div className="flex-1 border-2 border-dashed border-zinc-300 rounded-lg p-6 bg-zinc-50">
+                      <div className="flex flex-col items-center justify-center gap-4 text-center">
                         {uploading ? (
                           <>
                             <Loader2 className="w-6 h-6 text-zinc-400 mb-2 animate-spin" />
-                            <span className="text-sm text-zinc-600">Uploading...</span>
+                            <p className="text-sm text-zinc-600">Uploading selected image...</p>
                           </>
                         ) : selectedFile ? (
                           <>
-                            <Upload className="w-6 h-6 text-green-600 mb-2" />
-                            <span className="text-sm text-green-600">{selectedFile.name}</span>
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                uploadImageToCloudinary(selectedFile);
-                              }}
-                              className="mt-2 px-4 py-2 bg-[#a68a6b] text-white rounded hover:bg-[#9a7a5a] transition-colors text-sm"
-                            >
-                              Upload Image
-                            </button>
+                            <Upload className="w-6 h-6 text-zinc-400" />
+                            <p className="text-sm font-semibold text-slate-900">{selectedFile.name}</p>
+                            <p className="text-xs text-zinc-500">Selected file ready to upload.</p>
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                              <button
+                                type="button"
+                                onClick={() => uploadImageToCloudinary(selectedFile)}
+                                className="px-4 py-2 bg-[#a68a6b] text-white rounded-lg hover:bg-[#9a7a5a] transition-colors text-sm"
+                              >
+                                Upload Image
+                              </button>
+                              <button
+                                type="button"
+                                onClick={handleSelectImage}
+                                disabled={uploading}
+                                className="px-4 py-2 border border-zinc-300 rounded-lg text-sm text-slate-700 hover:bg-zinc-100 transition-colors"
+                              >
+                                Choose Different File
+                              </button>
+                            </div>
                           </>
                         ) : (
                           <>
-                            <Upload className="w-6 h-6 text-zinc-400 mb-2" />
-                            <span className="text-sm text-zinc-600">Click to select image</span>
+                            <Upload className="w-6 h-6 text-zinc-400" />
+                            <p className="text-sm font-semibold text-slate-900">Select an image file</p>
+                            <p className="text-xs text-zinc-500">Supported: JPG, PNG. Select a file and then click Upload Image.</p>
+                            <button
+                              type="button"
+                              onClick={handleSelectImage}
+                              className="mt-2 px-4 py-2 bg-[#a68a6b] text-white rounded-lg hover:bg-[#9a7a5a] transition-colors text-sm"
+                            >
+                              Choose Image
+                            </button>
                           </>
                         )}
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageChange}
-                          className="hidden"
-                          disabled={uploading}
-                        />
-                      </label>
+                      </div>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="hidden"
+                        disabled={uploading}
+                      />
                     </div>
+
                     {(formData.image || imagePreview) && (
-                      <div className="w-24 h-24 rounded-lg overflow-hidden bg-zinc-200 flex-shrink-0">
+                      <div className="w-full lg:w-32 h-32 rounded-lg overflow-hidden bg-zinc-200 flex-shrink-0">
                         <img
                           src={imagePreview || formData.image}
                           alt="Preview"
                           className="w-full h-full object-cover"
                         />
                       </div>
+                    )}
+                  </div>
+
+                  <div className="mt-4 text-sm text-zinc-500">
+                    {selectedFile && !uploading && (
+                      <p>Please upload the selected image before saving changes.</p>
+                    )}
+                    {uploadCompleted && (
+                      <p className="text-emerald-600">Image uploaded successfully. Click Save Changes to save the founder details.</p>
+                    )}
+                    {!selectedFile && !uploadCompleted && (
+                      <p>Choose an image, upload it, then save the page to persist the new founder image.</p>
                     )}
                   </div>
                 </div>
@@ -492,7 +533,7 @@ export default function FounderManagementPage() {
                 <div className="flex gap-3 pt-6 border-t border-zinc-200">
                   <button
                     onClick={handleSave}
-                    disabled={saving}
+                    disabled={saving || (!!selectedFile && !uploadCompleted)}
                     className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#a68a6b] text-white rounded-lg hover:bg-[#9a7a5a] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Save className="w-4 h-4" />
