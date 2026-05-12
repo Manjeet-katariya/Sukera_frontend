@@ -88,7 +88,7 @@ export default function MissionVision() {
               </p>
 
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/5">
-                {[{ v: '500+', l: 'Projects' }, { v: '15+', l: 'Years' }, { v: '100%', l: 'Satisfaction' }].map((s, i) => (
+                {[{ v: '100+', l: 'Projects' }, { v: '5+', l: 'Years' }, { v: '100%', l: 'Satisfaction' }].map((s, i) => (
                   <div key={i}>
                     <div className="text-2xl font-black text-white font-serif mb-1">{s.v}</div>
                     <div className="text-[9px] uppercase tracking-[0.2em] text-white/30 font-bold">{s.l}</div>

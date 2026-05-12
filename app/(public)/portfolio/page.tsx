@@ -81,7 +81,7 @@ export default function PortfolioPage() {
       <section className="relative min-h-[80vh] flex items-end overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1920&q=85"
+            src="https://i.ibb.co/whqFFtC5/living-cum-dining-3.png"
             alt="Portfolio"
             className="w-full h-full object-cover"
           />

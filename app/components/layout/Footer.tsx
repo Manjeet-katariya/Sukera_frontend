@@ -155,7 +155,7 @@ const Footer = () => {
             </p>
             {/* Social media stat */}
             <div className="border border-[#C9A96E]/20 p-6 inline-block">
-              <div className="text-3xl font-black text-[#C9A96E] font-serif mb-1">2,00,000<span className="text-[#C9A96E]">+</span></div>
+              <div className="text-3xl font-black text-[#C9A96E] font-serif mb-1">1,00,000<span className="text-[#C9A96E]">+</span></div>
               <div className="text-[9px] uppercase tracking-[0.3em] text-white/30 font-bold">People follow our journey</div>
             </div>
 

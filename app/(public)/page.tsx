@@ -13,13 +13,13 @@ const services = [
     num: '01',
     title: 'Residential Design',
     desc: 'Bespoke living spaces that reflect your personality — from concept to a fully-styled sanctuary.',
-    img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+    img: 'https://res.cloudinary.com/dfaylij9d/image/upload/v1778615815/vinay_pal_ji_view_b2f4he.png',
   },
   {
     num: '02',
     title: 'Commercial Spaces',
     desc: 'Dynamic environments that inspire productivity, impress clients, and embody your brand identity.',
-    img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+    img: 'https://i.ibb.co/ds1PrdDv/Salon-6.png',
   },
   {
     num: '03',
@@ -43,10 +43,10 @@ const processSteps = [
 ];
 
 const stats = [
-  { value: '500+', label: 'Projects Delivered' },
-  { value: '15+', label: 'Years Experience' },
+  { value: '100+', label: 'Projects Delivered' },
+  { value: '5+', label: 'Years Experience' },
   { value: '100%', label: 'Client Satisfaction' },
-  { value: '2M+', label: 'Social Followers' },
+  { value: '1M+', label: 'Social Followers' },
 ];
 
 const specialConditions = [
@@ -126,7 +126,7 @@ export default function Home() {
         {/* Parallax BG */}
         <motion.div style={{ y: heroY }} className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=85"
+            src="https://res.cloudinary.com/dfaylij9d/image/upload/v1778615160/IMG_3530_pdb7z9.jpg"
             alt="Luxury Interior"
             className="w-full h-full object-cover"
           />
@@ -219,7 +219,7 @@ export default function Home() {
                 />
                 {/* Overlapping stat card */}
                 <div className="absolute -right-8 bottom-16 bg-[#0A0A0A] border-l-4 border-[#C9A96E] p-8 shadow-2xl z-10">
-                  <div className="text-6xl font-black text-white font-serif leading-none mb-2">15<span className="text-[#C9A96E]">+</span></div>
+                  <div className="text-6xl font-black text-white font-serif leading-none mb-2">5<span className="text-[#C9A96E]">+</span></div>
                   <div className="text-[9px] uppercase tracking-[0.3em] text-white/40 font-bold">Years of<br />Excellence</div>
                 </div>
               </div>
@@ -581,7 +581,7 @@ export default function Home() {
             </div>
 
             <div className="text-[12vw] sm:text-[10vw] font-serif text-white leading-none mb-6">
-              2,000,000<span className="text-[#C9A96E] font-light">+</span>
+              1,00,000<span className="text-[#C9A96E] font-light">+</span>
             </div>
             
             <p className="text-white/50 text-base md:text-lg font-light tracking-widest uppercase max-w-2xl mx-auto leading-relaxed">

@@ -17,10 +17,10 @@ export default function ServicesPage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const stats = [
-    { value: '500+', label: 'Projects Delivered', icon: TrendingUp },
-    { value: '15+', label: 'Years Experience', icon: Star },
+    { value: '100+', label: 'Projects Delivered', icon: TrendingUp },
+    { value: '5+', label: 'Years Experience', icon: Star },
     { value: '100%', label: 'Client Satisfaction', icon: Users },
-    { value: '25+', label: 'Global Awards', icon: Award },
+    { value: '25+', label: 'Participation In Global Awards', icon: Award },
   ];
 
   const services = [
@@ -30,7 +30,7 @@ export default function ServicesPage() {
       title: 'Bespoke Residential Spaces',
       desc: 'We specialize in crafting bespoke living spaces that are both luxurious and liveable. From ground-up residential builds to complete home transformations, our approach ensures your sanctuary is a true reflection of your personality and lifestyle.',
       features: ["Custom Villa & Home Design", "Kitchen & Bathroom Remodeling", "Master Bedroom Sanctuaries", "Spatial Planning & Flow"],
-      img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200',
+      img: 'https://res.cloudinary.com/dfaylij9d/image/upload/v1778615815/vinay_pal_ji_view_b2f4he.png',
       cta: 'Discuss Your Home',
     },
     {
@@ -39,7 +39,7 @@ export default function ServicesPage() {
       title: 'Dynamic Commercial Environments',
       desc: 'Your commercial space is an extension of your brand. We design dynamic environments that inspire productivity, impress clients, and foster growth — from modern corporate offices to inviting hospitality venues.',
       features: ["Corporate Office Strategy", "Retail Store Environments", "Hospitality & Restaurant Ambience", "Brand Integration"],
-      img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200',
+      img: 'https://i.ibb.co/ds1PrdDv/Salon-6.png',
       cta: 'Elevate Your Workspace',
     },
     {
@@ -77,7 +77,7 @@ export default function ServicesPage() {
       <section ref={heroRef} className="relative min-h-screen flex items-end overflow-hidden">
         <motion.div style={{ y: heroY }} className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=85"
+            src="https://i.ibb.co/gFg7T4JD/IMG-E9452.jpg"
             alt="Sophisticated Interior"
             className="w-full h-full object-cover"
           />
@@ -256,7 +256,7 @@ export default function ServicesPage() {
             >
               <div className="aspect-[4/3] overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80"
+                  src="https://i.ibb.co/gFg7T4JD/IMG-E9452.jpg"
                   alt="Architecture"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
